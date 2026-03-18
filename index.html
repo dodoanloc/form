@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyClaw - Nhập Thông Tin Cá Nhân</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- docx Library -->
+    <script src="https://unpkg.com/docx@8.2.2/build/index.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="20" cy="20" r="18" fill="url(#gradient)"/>
+                    <path d="M12 20L18 26L28 14" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                            <stop offset="0%" stop-color="#00D9FF"/>
+                            <stop offset="100%" stop-color="#6366F1"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>SkyClaw</span>
+            </div>
+            <p class="tagline">Nhập thông tin cá nhân - Xuất file mẫu biểu</p>
+        </header>
+
+        <main class="main-content">
+            <form id="personalForm" class="form-container">
+                <div class="form-section">
+                    <h2>Thông Tin Cơ Bản</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullName">Họ và tên <span class="required">*</span></label>
+                            <input type="text" id="fullName" name="fullName" required placeholder="Nguyễn Văn A">
+                        </div>
+                        <div class="form-group">
+                            <label for="dateOfBirth">Ngày sinh</label>
+                            <input type="date" id="dateOfBirth" name="dateOfBirth">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Giới tính</label>
+                            <select id="gender" name="gender">
+                                <option value="">Chọn giới tính</option>
+                                <option value="male">Nam</option>
+                                <option value="female">Nữ</option>
+                                <option value="other">Khác</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nationality">Quốc tịch</label>
+                            <input type="text" id="nationality" name="nationality" placeholder="Việt Nam">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Thông Tin Liên Lạc</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="email">Email <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required placeholder="email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Số điện thoại</label>
+                            <input type="tel" id="phone" name="phone" placeholder="0912 345 678">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" id="address" name="address" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Thông Tin Cá Nhân Khác</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="idNumber">Số CMND/CCCD</label>
+                            <input type="text" id="idNumber" name="idNumber" placeholder="012345678901">
+                        </div>
+                        <div class="form-group">
+                            <label for="issueDate">Ngày cấp</label>
+                            <input type="date" id="issueDate" name="issueDate">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="issuePlace">Nơi cấp</label>
+                            <input type="text" id="issuePlace" name="issuePlace" placeholder="Công an tỉnh/thành phố">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="occupation">Nghề nghiệp</label>
+                            <input type="text" id="occupation" name="occupation" placeholder="Kỹ sư, bác sĩ, giáo viên, ...">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="workplace">Nơi làm việc/Học tập</label>
+                            <input type="text" id="workplace" name="workplace" placeholder="Công ty, trường học, ...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Xuất File</h2>
+                    <div class="export-options">
+                        <label class="export-option">
+                            <input type="radio" name="exportFormat" value="pdf" checked>
+                            <span class="option-card">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                    <line x1="16" y1="13" x2="8" y2="13"/>
+                                    <line x1="16" y1="17" x2="8" y2="17"/>
+                                    <polyline points="10 9 9 9 8 9"/>
+                                </svg>
+                                <span>PDF</span>
+                            </span>
+                        </label>
+                        <label class="export-option">
+                            <input type="radio" name="exportFormat" value="docx">
+                            <span class="option-card">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                    <text x="8" y="17" font-size="6" fill="currentColor">DOCX</text>
+                                </svg>
+                                <span>DOCX</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">Nhập Lại</button>
+                    <button type="submit" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Xuất File
+                    </button>
+                </div>
+            </form>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 SkyClaw. Built with ❤️</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
