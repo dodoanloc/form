@@ -2,7 +2,7 @@ const form = document.getElementById('businessForm');
 const toggleOptionalBtn = document.getElementById('toggleOptionalBtn');
 const optionalFields = document.getElementById('optionalFields');
 const AIRTABLE_BASE_ID = 'appQYwQ37OxVfoRGn';
-const AIRTABLE_TABLE_NAME = 'HoKinhDoanh';
+const AIRTABLE_TABLE_ID = 'tblM8BsS7RrKjb20R';
 const AIRTABLE_TOKEN = 'patnWGs6JwKmhOfNX.23903394b7357442b9ed396470a06d3ad920a6727441fd312de9b62e55df8c91';
 
 function pad2(value) {
@@ -114,31 +114,27 @@ function buildMappings(data) {
 function buildAirtablePayload(data) {
     const createdAt = new Date();
     return {
-        records: [
-            {
-                fields: {
-                    'Tên hộ kinh doanh': fallback(data.businessName),
-                    'Số giấy phép ĐKKD': fallback(data.businessLicense),
-                    'Ngày cấp giấy phép': formatDateSlash(data.businessIssueDate),
-                    'Nơi cấp giấy phép': fallback(data.businessIssuePlace),
-                    'Mã số thuế': fallback(data.taxCode, fallback(data.ownerIdNumber)),
-                    'Địa chỉ kinh doanh': fallback(data.businessAddress),
-                    'Họ tên chủ hộ': fallback(data.ownerName),
-                    'Giới tính': fallback(data.ownerGender),
-                    'Ngày sinh': formatDateSlash(data.ownerBirthDate),
-                    'Số CCCD': fallback(data.ownerIdNumber),
-                    'Ngày cấp CCCD': formatDateSlash(data.ownerIssueDate),
-                    'Nơi cấp CCCD': fallback(data.ownerIssuePlace),
-                    'Ngày hết hạn CCCD': formatDateSlash(data.ownerExpiryDate),
-                    'Địa chỉ chủ hộ': fallback(data.ownerAddress, fallback(data.businessAddress)),
-                    'Số điện thoại chủ hộ': fallback(data.ownerPhone),
-                    'Mã số khách hàng': fallback(data.customerCode),
-                    'Số tài khoản': fallback(data.accountNumber),
-                    'Tên chi nhánh': fallback(data.branchName, 'Thọ Xuân Thanh Hóa'),
-                    'Ngày tạo bản ghi': createdAt.toISOString()
-                }
-            }
-        ]
+        fields: {
+            'Tên hộ kinh doanh': fallback(data.businessName),
+            'Số giấy phép ĐKKD': fallback(data.businessLicense),
+            'Ngày cấp giấy phép': formatDateSlash(data.businessIssueDate),
+            'Nơi cấp giấy phép': fallback(data.businessIssuePlace),
+            'Mã số thuế': fallback(data.taxCode, fallback(data.ownerIdNumber)),
+            'Địa chỉ kinh doanh': fallback(data.businessAddress),
+            'Họ tên chủ hộ': fallback(data.ownerName),
+            'Giới tính': fallback(data.ownerGender),
+            'Ngày sinh': formatDateSlash(data.ownerBirthDate),
+            'Số CCCD': fallback(data.ownerIdNumber),
+            'Ngày cấp CCCD': formatDateSlash(data.ownerIssueDate),
+            'Nơi cấp CCCD': fallback(data.ownerIssuePlace),
+            'Ngày hết hạn CCCD': formatDateSlash(data.ownerExpiryDate),
+            'Địa chỉ chủ hộ': fallback(data.ownerAddress, fallback(data.businessAddress)),
+            'Số điện thoại chủ hộ': fallback(data.ownerPhone),
+            'Mã số khách hàng': fallback(data.customerCode),
+            'Số tài khoản': fallback(data.accountNumber),
+            'Tên chi nhánh': fallback(data.branchName, 'Thọ Xuân Thanh Hóa'),
+            'Ngày tạo bản ghi': createdAt.toISOString()
+        }
     };
 }
 
@@ -154,26 +150,29 @@ function replacePlaceholdersInXml(xml, mappings) {
 
 async function saveToAirtable(data) {
     const payload = buildAirtablePayload(data);
-    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}`;
+    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_ID}`;
 
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload),
-            keepalive: true
-        });
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
 
-        if (!response.ok) {
-            const text = await response.text();
-            throw new Error(`Airtable error ${response.status}: ${text}`);
+    if (!response.ok) {
+        let errorData;
+        try {
+            errorData = await response.json();
+        } catch {
+            errorData = await response.text();
         }
-    } catch (error) {
-        console.error('Background Airtable sync failed:', error);
+        console.error('Airtable error:', errorData);
+        throw new Error(`Airtable error ${response.status}`);
     }
+
+    return await response.json();
 }
 
 async function generateDocxFromTemplate(mappings) {
@@ -244,7 +243,9 @@ form.addEventListener('submit', async (e) => {
         const data = Object.fromEntries(formData.entries());
         const mappings = buildMappings(data);
         await generateDocxFromTemplate(mappings);
-        void saveToAirtable(data);
+        saveToAirtable(data).catch((error) => {
+            console.error('Airtable save failed after export:', error);
+        });
         showToast('Xuất file thành công!', 'success');
     } catch (error) {
         console.error(error);
