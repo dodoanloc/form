@@ -23,19 +23,18 @@ form.addEventListener('submit', async (e) => {
         
         // Map form fields to DOCX placeholders
         const mappings = {
-            'TenVN': data.businessName,           // Tên Hộ kinh doanh -> Tên tiếng Việt
-            'SoGT': data.businessLicense,        // Số ĐKKD -> Số giấy tờ
-            'Ngcap': data.businessIssueDate,       // Ngày cấp ĐKKD -> Ngày cấp
-            'NoiCap': data.businessIssuePlace,   // Nơi cấp ĐKKD -> Nơi cấp
-            'Ng.HH': data.ownerExpiryDate,      // Ngày hết hạn CCCD -> Ngày hết hạn
-            'MST': data.ownerIdNumber,           // Số CCCD -> Mã số thuế (tạm dùng)
-            'TenChiNhanh': '',                // Tên chi nhánh (để trống)
-            'TenTA': '',                    // Tên tiếng Anh
-            'TenVTVn': '',                 // Tên viết tắt tiếng Việt
-            'TenVTTA': '',                 // Tên viết tắt tiếng Anh
-            'MsKH': '',                    // Mã khách hàng
-            'SoTK': '',                    // Số tài khoản
-            'TenChiNhanh': ''              // Tên chi nhánh
+            'TenVN': data.businessName || '',
+            'SoGT': data.businessLicense || '',
+            'Ngcap': data.businessIssueDate || '',
+            'NoiCap': data.businessIssuePlace || '',
+            'Ng.HH': data.ownerExpiryDate || '',
+            'MST': data.ownerIdNumber || '',
+            'TenChiNhanh': '',
+            'TenTA': '',
+            'TenVTVn': '',
+            'TenVTTA': '',
+            'MsKH': '',
+            'SoTK': ''
         };
         
         console.log('Mapped data:', mappings);
@@ -70,16 +69,22 @@ async function generateDOCXFromTemplate(data) {
         
         const arrayBuffer = await response.arrayBuffer();
         
-        // Use PizZip and docxtemplater
+        // Use PizZip from window
         const PizZip = window.PizZip;
         const Docxtemplater = window.Docxtemplater;
         
+        if (!PizZip) {
+            throw new Error('Thư viện PizZip chưa tải');
+        }
+        if (!Docxtemplater) {
+            throw new Error('Thư viện Docxtemplater chưa tải');
+        }
+        
         const zip = new PizZip(arrayBuffer);
+        
         const doc = new Docxtemplater(zip, {
             paragraphLoop: true,
-            linebreaks: true,
-            // Set the data
-            variables: Object.keys(data)
+            linebreaks: true
         });
         
         // Render the document
@@ -137,4 +142,3 @@ function showToast(message, type = 'success') {
 }
 
 window.resetForm = resetForm;
-window.generateDOCXFromTemplate = generateDOCXFromTemplate;
