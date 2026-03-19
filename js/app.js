@@ -84,7 +84,11 @@ async function generateDOCXFromTemplate(data) {
         
         const doc = new Docxtemplater(zip, {
             paragraphLoop: true,
-            linebreaks: true
+            linebreaks: true,
+            delimiters: {
+                start: '[',
+                end: ']'
+            }
         });
         
         // Render the document
