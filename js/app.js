@@ -17,6 +17,18 @@ function formatDateSlash(value) {
     return `${pad2(d.getDate())}/${pad2(d.getMonth() + 1)}/${d.getFullYear()}`;
 }
 
+function formatDateIso(value) {
+    if (!value) return '';
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+    if (/^\d{2}\/\d{2}\/\d{4}$/.test(value)) {
+        const [dd, mm, yyyy] = value.split('/');
+        return `${yyyy}-${mm}-${dd}`;
+    }
+    const d = new Date(value);
+    if (Number.isNaN(d.getTime())) return '';
+    return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+}
+
 function formatDateFullText(value) {
     const d = value ? new Date(value) : new Date();
     if (Number.isNaN(d.getTime())) return value || '';
@@ -112,28 +124,26 @@ function buildMappings(data) {
 }
 
 function buildAirtablePayload(data) {
-    const createdAt = new Date();
     return {
         fields: {
             'Tên hộ kinh doanh': fallback(data.businessName),
             'Số giấy phép ĐKKD': fallback(data.businessLicense),
-            'Ngày cấp giấy phép': formatDateSlash(data.businessIssueDate),
+            'Ngày cấp giấy phép': formatDateIso(data.businessIssueDate),
             'Nơi cấp giấy phép': fallback(data.businessIssuePlace),
             'Mã số thuế': fallback(data.taxCode, fallback(data.ownerIdNumber)),
             'Địa chỉ kinh doanh': fallback(data.businessAddress),
             'Họ tên chủ hộ': fallback(data.ownerName),
             'Giới tính': fallback(data.ownerGender),
-            'Ngày sinh': formatDateSlash(data.ownerBirthDate),
+            'Ngày sinh': formatDateIso(data.ownerBirthDate),
             'Số CCCD': fallback(data.ownerIdNumber),
-            'Ngày cấp CCCD': formatDateSlash(data.ownerIssueDate),
+            'Ngày cấp CCCD': formatDateIso(data.ownerIssueDate),
             'Nơi cấp CCCD': fallback(data.ownerIssuePlace),
-            'Ngày hết hạn CCCD': formatDateSlash(data.ownerExpiryDate),
+            'Ngày hết hạn CCCD': formatDateIso(data.ownerExpiryDate),
             'Địa chỉ chủ hộ': fallback(data.ownerAddress, fallback(data.businessAddress)),
             'Số điện thoại chủ hộ': fallback(data.ownerPhone),
             'Mã số khách hàng': fallback(data.customerCode),
             'Số tài khoản': fallback(data.accountNumber),
-            'Tên chi nhánh': fallback(data.branchName, 'Thọ Xuân Thanh Hóa'),
-            'Ngày tạo bản ghi': createdAt.toISOString()
+            'Tên chi nhánh': fallback(data.branchName, 'Thọ Xuân Thanh Hóa')
         }
     };
 }
