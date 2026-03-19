@@ -186,6 +186,65 @@ form.addEventListener('submit', async (e) => {
         const data = Object.fromEntries(formData.entries());
         const mappings = buildMappings(data);
         await generateDocxFromTemplate(mappings);
+        void saveToN8n(data);
+        showToast('Xuất file thành công!', 'success');
+    } catch (error) {
+        console.error(error);
+        showToast(`Có lỗi xảy ra: ${error.message}`, 'error');
+    } finally {
+        submitBtn.classList.remove('loading');
+    }
+});
+
+if (toggleOptionalBtn) {
+    toggleOptionalBtn.addEventListener('click', toggleOptionalFields);
+}
+
+window.resetForm = resetForm;     type: 'blob',
+        mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    });
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `mau_bieu_ho_kinh_doanh_${Date.now()}.docx`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function showToast(message, type = 'success') {
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) existingToast.remove();
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `
+        ${type === 'success'
+            ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'
+            : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'}
+        <span>${message}</span>
+    `;
+
+    document.body.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 10);
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.classList.add('loading');
+
+    try {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        const mappings = buildMappings(data);
+        await generateDocxFromTemplate(mappings);
         showToast('Xuất file thành công!', 'success');
     } catch (error) {
         console.error(error);
