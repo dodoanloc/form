@@ -98,6 +98,7 @@ function buildMappings(data) {
         'SoDT.GD': ownerPhone,
         'CV.GD': '',
         'NgC.TL': '',
+        'QDBN.TL': '......................',
         'DT': fallback(data.contactPhone, ownerPhone),
         'Em.Cty': fallback(data.companyEmail, '................'),
         'TenChiNhanh': fallback(data.branchName, 'Thọ Xuân Thanh Hóa'),
