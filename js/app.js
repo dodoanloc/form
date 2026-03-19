@@ -71,7 +71,7 @@ async function generateDOCXFromTemplate(data) {
         
         // Use PizZip from window
         const PizZip = window.PizZip;
-        const Docxtemplater = window.Docxtemplater;
+        const Docxtemplater = window.docxtemplater;
         
         if (!PizZip) {
             throw new Error('Thư viện PizZip chưa tải');
