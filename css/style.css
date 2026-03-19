@@ -137,6 +137,14 @@ body {
     border-radius: 2px;
 }
 
+.section-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -146,6 +154,11 @@ body {
 @media (max-width: 640px) {
     .form-grid {
         grid-template-columns: 1fr;
+    }
+
+    .section-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 
@@ -201,6 +214,14 @@ body {
 .form-group input:hover,
 .form-group select:hover {
     border-color: var(--primary-light);
+}
+
+.optional-fields {
+    display: none;
+}
+
+.optional-fields.is-open {
+    display: grid;
 }
 
 /* Export Options */
@@ -278,6 +299,11 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
+}
+
+.btn-small {
+    padding: 10px 16px;
+    font-size: 0.875rem;
 }
 
 .btn-primary {

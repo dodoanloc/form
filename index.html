@@ -26,43 +26,29 @@
                 </svg>
                 <span>Form</span>
             </div>
-            <p class="tagline">Mẫu biểu chuẩn Hộ kinh doanh - điền placeholder và xuất DOCX</p>
+            <p class="tagline">Mẫu biểu chuẩn Hộ kinh doanh - giao diện gọn, dễ nhập liệu</p>
         </header>
 
         <main class="main-content">
             <form id="businessForm" class="form-container">
                 <div class="form-section">
-                    <h2>Ngày tháng & thông tin hệ thống</h2>
+                    <h2>Thông tin giao dịch</h2>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="fullDate">[Ngaydaydu]</label>
-                            <input type="text" id="fullDate" name="fullDate" placeholder="Tự động lấy ngày hiện tại">
-                            <small>Mặc định: ngày hiện tại dạng “ngày 01 tháng 05 năm 2026”.</small>
+                            <label for="customerCode">Mã số khách hàng [MsKH]</label>
+                            <input type="text" id="customerCode" name="customerCode" placeholder="Nhập mã số khách hàng nếu có">
                         </div>
                         <div class="form-group">
-                            <label for="shortDate">[Ngay//]</label>
-                            <input type="text" id="shortDate" name="shortDate" placeholder="Tự động lấy ngày hiện tại">
-                            <small>Mặc định: dd/mm/yyyy.</small>
+                            <label for="accountNumber">Số tài khoản [SoTK]</label>
+                            <input type="text" id="accountNumber" name="accountNumber" placeholder="Nhập số tài khoản nếu có">
                         </div>
                         <div class="form-group">
-                            <label for="customerCode">[MsKH]</label>
-                            <input type="text" id="customerCode" name="customerCode" placeholder="Mã số khách hàng">
-                        </div>
-                        <div class="form-group">
-                            <label for="accountNumber">[SoTK]</label>
-                            <input type="text" id="accountNumber" name="accountNumber" placeholder="Số tài khoản khách hàng">
-                        </div>
-                        <div class="form-group">
-                            <label for="branchName">[TenChiNhanh]</label>
+                            <label for="branchName">Tên chi nhánh [TenChiNhanh]</label>
                             <input type="text" id="branchName" name="branchName" placeholder="Mặc định Thọ Xuân Thanh Hóa">
                         </div>
                         <div class="form-group">
-                            <label for="locationName">[Diadanh]</label>
+                            <label for="locationName">Địa danh [Diadanh]</label>
                             <input type="text" id="locationName" name="locationName" placeholder="Mặc định Thanh Hóa">
-                        </div>
-                        <div class="form-group">
-                            <label for="staffCode">[GDV]</label>
-                            <input type="text" id="staffCode" name="staffCode" placeholder="Nếu không nhập thì để rỗng">
                         </div>
                     </div>
                 </div>
@@ -71,87 +57,41 @@
                     <h2>Thông tin hộ kinh doanh</h2>
                     <div class="form-grid">
                         <div class="form-group full-width">
-                            <label for="businessName">[TenVN] Tên hộ kinh doanh <span class="required">*</span></label>
+                            <label for="businessName">Tên hộ kinh doanh [TenVN] <span class="required">*</span></label>
                             <input type="text" id="businessName" name="businessName" required placeholder="Nhập tên hộ kinh doanh">
                         </div>
                         <div class="form-group">
-                            <label for="businessShortName">[TenVTVn]</label>
-                            <input type="text" id="businessShortName" name="businessShortName" placeholder="Mặc định giống tên hộ kinh doanh">
-                        </div>
-                        <div class="form-group">
-                            <label for="businessNameEn">[TenTA]</label>
-                            <input type="text" id="businessNameEn" name="businessNameEn" placeholder="Mặc định tên hộ kinh doanh viết HOA, bỏ dấu">
-                        </div>
-                        <div class="form-group">
-                            <label for="businessShortNameEn">[TenVTTA]</label>
-                            <input type="text" id="businessShortNameEn" name="businessShortNameEn" placeholder="Mặc định giống tên tiếng Anh">
-                        </div>
-                        <div class="form-group">
-                            <label for="documentType">[Loai Giấy Tờ]</label>
-                            <input type="text" id="documentType" name="documentType" placeholder="Mặc định ĐKKD">
-                        </div>
-                        <div class="form-group">
-                            <label for="businessLicense">[SoGT] Số giấy phép ĐKKD <span class="required">*</span></label>
+                            <label for="businessLicense">Số giấy phép ĐKKD [SoGT] <span class="required">*</span></label>
                             <input type="text" id="businessLicense" name="businessLicense" required placeholder="Số giấy phép đăng ký kinh doanh">
                         </div>
                         <div class="form-group">
-                            <label for="taxCode">[MST]</label>
+                            <label for="taxCode">Mã số thuế [MST]</label>
                             <input type="text" id="taxCode" name="taxCode" placeholder="Nếu trống sẽ lấy số CCCD chủ hộ">
                         </div>
                         <div class="form-group">
-                            <label for="businessIssueDate">[Ngcap] Ngày cấp <span class="required">*</span></label>
+                            <label for="businessIssueDate">Ngày cấp giấy phép [Ngcap] <span class="required">*</span></label>
                             <input type="date" id="businessIssueDate" name="businessIssueDate" required>
                         </div>
                         <div class="form-group">
-                            <label for="businessIssuePlace">[NoiCap] Nơi cấp <span class="required">*</span></label>
+                            <label for="businessIssuePlace">Nơi cấp giấy phép [NoiCap] <span class="required">*</span></label>
                             <input type="text" id="businessIssuePlace" name="businessIssuePlace" required placeholder="Nơi cấp đăng ký kinh doanh">
                         </div>
-                        <div class="form-group">
-                            <label for="businessExpiryDate">[Ng.HH]</label>
-                            <input type="date" id="businessExpiryDate" name="businessExpiryDate">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <h2>Ngành nghề & địa chỉ kinh doanh</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="businessField">[Lv.KD]</label>
-                            <input type="text" id="businessField" name="businessField" placeholder="Nếu trống sẽ là ....">
-                        </div>
-                        <div class="form-group">
-                            <label for="mainCompany">[Cty.M]</label>
-                            <input type="text" id="mainCompany" name="mainCompany" placeholder="Mặc định để trống">
-                        </div>
-                        <div class="form-group">
-                            <label for="businessIndustry">[Nc.KD]</label>
-                            <input type="text" id="businessIndustry" name="businessIndustry" placeholder="Ngành nghề kinh doanh">
-                        </div>
                         <div class="form-group full-width">
-                            <label for="businessAddress">[DC] Địa chỉ kinh doanh <span class="required">*</span></label>
+                            <label for="businessAddress">Địa chỉ kinh doanh [DC] <span class="required">*</span></label>
                             <input type="text" id="businessAddress" name="businessAddress" required placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố">
                         </div>
-                        <div class="form-group">
-                            <label for="companyEmail">[Em.Cty]</label>
-                            <input type="email" id="companyEmail" name="companyEmail" placeholder="Nếu trống thì ....">
-                        </div>
-                        <div class="form-group">
-                            <label for="contactPhone">[DT]</label>
-                            <input type="text" id="contactPhone" name="contactPhone" placeholder="Nếu trống sẽ lấy số điện thoại chủ hộ">
-                        </div>
                     </div>
                 </div>
 
                 <div class="form-section">
-                    <h2>Thông tin chủ hộ</h2>
+                    <h2>Thông tin chủ hộ kinh doanh</h2>
                     <div class="form-grid">
                         <div class="form-group full-width">
-                            <label for="ownerName">[HoTen.GD] Họ tên chủ hộ <span class="required">*</span></label>
+                            <label for="ownerName">Họ tên chủ hộ KD [HoTen.GD] <span class="required">*</span></label>
                             <input type="text" id="ownerName" name="ownerName" required placeholder="Nguyễn Văn A">
                         </div>
                         <div class="form-group">
-                            <label for="ownerGender">[GT.GD] Giới tính <span class="required">*</span></label>
+                            <label for="ownerGender">Giới tính chủ hộ KD [GT.GD] <span class="required">*</span></label>
                             <select id="ownerGender" name="ownerGender" required>
                                 <option value="">Chọn giới tính</option>
                                 <option value="Nam">Nam</option>
@@ -160,45 +100,57 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="ownerBirthDate">[NgS.GD] Ngày sinh <span class="required">*</span></label>
+                            <label for="ownerBirthDate">Ngày sinh chủ hộ KD [NgS.GD] <span class="required">*</span></label>
                             <input type="date" id="ownerBirthDate" name="ownerBirthDate" required>
                         </div>
                         <div class="form-group">
-                            <label for="ownerNationality">[QT.GD]</label>
-                            <input type="text" id="ownerNationality" name="ownerNationality" placeholder="Mặc định Việt Nam">
-                        </div>
-                        <div class="form-group">
-                            <label for="ownerIdNumber">[SoCC.GD] Số CCCD/giấy tờ <span class="required">*</span></label>
+                            <label for="ownerIdNumber">Số CCCD/giấy tờ chủ hộ KD [SoCC.GD] <span class="required">*</span></label>
                             <input type="text" id="ownerIdNumber" name="ownerIdNumber" required placeholder="Số giấy tờ tùy thân">
                         </div>
                         <div class="form-group">
-                            <label for="ownerIssueDate">[NgC.GD] Ngày cấp giấy tờ <span class="required">*</span></label>
+                            <label for="ownerIssueDate">Ngày cấp giấy tờ chủ hộ KD [NgC.GD] <span class="required">*</span></label>
                             <input type="date" id="ownerIssueDate" name="ownerIssueDate" required>
                         </div>
                         <div class="form-group">
-                            <label for="ownerIssuePlace">[NC.GD] Nơi cấp giấy tờ <span class="required">*</span></label>
+                            <label for="ownerIssuePlace">Nơi cấp giấy tờ chủ hộ KD [NC.GD] <span class="required">*</span></label>
                             <input type="text" id="ownerIssuePlace" name="ownerIssuePlace" required placeholder="Công an tỉnh/thành phố">
                         </div>
                         <div class="form-group">
-                            <label for="ownerExpiryDate">[NgHH.GD] Ngày hết hạn giấy tờ <span class="required">*</span></label>
+                            <label for="ownerExpiryDate">Ngày hết hạn giấy tờ chủ hộ KD [NgHH.GD] <span class="required">*</span></label>
                             <input type="date" id="ownerExpiryDate" name="ownerExpiryDate" required>
                         </div>
                         <div class="form-group full-width">
-                            <label for="ownerAddress">[DC.GD]</label>
+                            <label for="ownerAddress">Địa chỉ chủ hộ KD [DC.GD]</label>
                             <input type="text" id="ownerAddress" name="ownerAddress" placeholder="Nếu trống sẽ lấy địa chỉ kinh doanh">
                         </div>
                         <div class="form-group">
-                            <label for="ownerPhone">[SoDT.GD] Số điện thoại chủ hộ <span class="required">*</span></label>
+                            <label for="ownerPhone">Số điện thoại chủ hộ KD [SoDT.GD] <span class="required">*</span></label>
                             <input type="text" id="ownerPhone" name="ownerPhone" required placeholder="Số điện thoại chủ hộ">
                         </div>
-                        <div class="form-group">
-                            <label for="ownerRole">[CV.GD]</label>
-                            <input type="text" id="ownerRole" name="ownerRole" placeholder="Mặc định Chủ hộ KD">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-toolbar">
+                        <h2>Trường không bắt buộc</h2>
+                        <button type="button" class="btn btn-secondary btn-small" id="toggleOptionalBtn">Hiện thêm trường không bắt buộc</button>
+                    </div>
+                    <div class="form-grid optional-fields" id="optionalFields">
+                        <div class="form-group optional-group">
+                            <label for="businessField">Lĩnh vực kinh doanh [Lv.KD]</label>
+                            <input type="text" id="businessField" name="businessField" placeholder="Nếu trống sẽ là ....">
                         </div>
-                        <div class="form-group">
-                            <label for="beneficiaryIssueDate">[NgC.TL]</label>
-                            <input type="date" id="beneficiaryIssueDate" name="beneficiaryIssueDate">
-                            <small>Nếu trống sẽ dùng ngày cấp giấy tờ của chủ hộ.</small>
+                        <div class="form-group optional-group">
+                            <label for="companyEmail">Email công ty/hộ KD [Em.Cty]</label>
+                            <input type="email" id="companyEmail" name="companyEmail" placeholder="Nếu trống thì ....">
+                        </div>
+                        <div class="form-group optional-group">
+                            <label for="contactPhone">Số điện thoại liên hệ [DT]</label>
+                            <input type="text" id="contactPhone" name="contactPhone" placeholder="Nếu trống sẽ lấy số điện thoại chủ hộ">
+                        </div>
+                        <div class="form-group optional-group">
+                            <label for="staffCode">Mã giao dịch viên [GDV]</label>
+                            <input type="text" id="staffCode" name="staffCode" placeholder="Nếu không nhập thì để rỗng">
                         </div>
                     </div>
                 </div>

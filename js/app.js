@@ -1,4 +1,6 @@
 const form = document.getElementById('businessForm');
+const toggleOptionalBtn = document.getElementById('toggleOptionalBtn');
+const optionalFields = document.getElementById('optionalFields');
 
 function pad2(value) {
     return String(value).padStart(2, '0');
@@ -49,52 +51,58 @@ function resetForm() {
     showToast('Đã nhập lại form', 'success');
 }
 
+function toggleOptionalFields() {
+    optionalFields.classList.toggle('is-open');
+    const isOpen = optionalFields.classList.contains('is-open');
+    toggleOptionalBtn.textContent = isOpen
+        ? 'Ẩn bớt trường không bắt buộc'
+        : 'Hiện thêm trường không bắt buộc';
+}
+
 function buildMappings(data) {
     const businessName = fallback(data.businessName);
     const ownerIdNumber = fallback(data.ownerIdNumber);
     const ownerPhone = fallback(data.ownerPhone);
     const businessAddress = fallback(data.businessAddress);
-
-    const shortDate = fallback(data.shortDate, formatDateSlash(todayIso()));
-    const fullDate = fallback(data.fullDate, formatDateFullText(todayIso()));
     const businessNameEnDefault = normalizeVietnameseUpper(businessName);
+    const today = todayIso();
 
     return {
-        'Ngaydaydu': fullDate,
-        'Ngay//': shortDate,
+        'Ngaydaydu': formatDateFullText(today),
+        'Ngay//': formatDateSlash(today),
         'MsKH': fallback(data.customerCode, '................'),
         'SoTK': fallback(data.accountNumber, '................'),
         'TenVN': businessName,
-        'TenVTVn': fallback(data.businessShortName, businessName),
-        'TenTA': fallback(data.businessNameEn, businessNameEnDefault),
-        'TenVTTA': fallback(data.businessShortNameEn, fallback(data.businessNameEn, businessNameEnDefault)),
-        'Loai Giấy Tờ': fallback(data.documentType, 'ĐKKD'),
+        'TenVTVn': businessName,
+        'TenTA': businessNameEnDefault,
+        'TenVTTA': businessNameEnDefault,
+        'Loai Giấy Tờ': 'ĐKKD',
         'SoGT': fallback(data.businessLicense),
         'MST': fallback(data.taxCode, ownerIdNumber),
         'Ngcap': formatDateSlash(data.businessIssueDate),
         'NoiCap': fallback(data.businessIssuePlace, '................'),
-        'Ng.HH': formatDateSlash(data.businessExpiryDate),
+        'Ng.HH': '',
         'Lv.KD': fallback(data.businessField, '................'),
-        'Cty.M': fallback(data.mainCompany, ''),
-        'Nc.KD': fallback(data.businessIndustry, ''),
+        'Cty.M': '',
+        'Nc.KD': '',
         'DC': businessAddress,
         'HoTen.GD': fallback(data.ownerName),
         'GT.GD': fallback(data.ownerGender),
         'NgS.GD': formatDateSlash(data.ownerBirthDate),
-        'QT.GD': fallback(data.ownerNationality, 'Việt Nam'),
+        'QT.GD': '',
         'SoCC.GD': ownerIdNumber,
         'NgC.GD': formatDateSlash(data.ownerIssueDate),
         'NC.GD': fallback(data.ownerIssuePlace),
         'NgHH.GD': formatDateSlash(data.ownerExpiryDate),
         'DC.GD': fallback(data.ownerAddress, businessAddress),
         'SoDT.GD': ownerPhone,
-        'CV.GD': fallback(data.ownerRole, 'Chủ hộ KD'),
-        'NgC.TL': formatDateSlash(fallback(data.beneficiaryIssueDate, data.ownerIssueDate)),
+        'CV.GD': '',
+        'NgC.TL': '',
         'DT': fallback(data.contactPhone, ownerPhone),
         'Em.Cty': fallback(data.companyEmail, '................'),
         'TenChiNhanh': fallback(data.branchName, 'Thọ Xuân Thanh Hóa'),
         'Diadanh': fallback(data.locationName, 'Thanh Hóa'),
-        'GDV': fallback(data.staffCode, 'rỗng')
+        'GDV': fallback(data.staffCode, '')
     };
 }
 
@@ -185,5 +193,9 @@ form.addEventListener('submit', async (e) => {
         submitBtn.classList.remove('loading');
     }
 });
+
+if (toggleOptionalBtn) {
+    toggleOptionalBtn.addEventListener('click', toggleOptionalFields);
+}
 
 window.resetForm = resetForm;
