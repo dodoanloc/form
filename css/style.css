@@ -165,6 +165,12 @@ body {
     color: var(--text-secondary);
 }
 
+.form-group small {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
 .required {
     color: var(--error);
 }
