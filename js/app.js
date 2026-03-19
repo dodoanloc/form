@@ -156,7 +156,7 @@ async function saveToN8n(data) {
         await fetch(N8N_WEBHOOK_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'text/plain;charset=UTF-8'
             },
             mode: 'no-cors',
             body: JSON.stringify(payload),
