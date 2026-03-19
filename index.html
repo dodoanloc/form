@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyClaw - Nhập Thông Tin Cá Nhân</title>
+    <title>Mẫu biểu Hộ kinh doanh</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- jsPDF Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -29,80 +29,61 @@
                         </linearGradient>
                     </defs>
                 </svg>
-                <span>SkyClaw</span>
+                <span>Form</span>
             </div>
-            <p class="tagline">Nhập thông tin cá nhân - Xuất file mẫu biểu</p>
+            <p class="tagline">Mẫu biểu Hộ kinh doanh - Xuất file PDF/DOCX</p>
         </header>
 
         <main class="main-content">
-            <form id="personalForm" class="form-container">
+            <form id="businessForm" class="form-container">
                 <div class="form-section">
-                    <h2>Thông Tin Cơ Bản</h2>
+                    <h2>Thông Tin Hộ Kinh Doanh</h2>
                     <div class="form-grid">
-                        <div class="form-group">
-                            <label for="fullName">Họ và tên <span class="required">*</span></label>
-                            <input type="text" id="fullName" name="fullName" required placeholder="Nguyễn Văn A">
+                        <div class="form-group full-width">
+                            <label for="businessName">Tên Hộ kinh doanh <span class="required">*</span></label>
+                            <input type="text" id="businessName" name="businessName" required placeholder="Nhập tên hộ kinh doanh">
                         </div>
                         <div class="form-group">
-                            <label for="dateOfBirth">Ngày sinh</label>
-                            <input type="date" id="dateOfBirth" name="dateOfBirth">
+                            <label for="businessLicense">Số giấy phép ĐKKD <span class="required">*</span></label>
+                            <input type="text" id="businessLicense" name="businessLicense" required placeholder="Số ĐKKD">
                         </div>
                         <div class="form-group">
-                            <label for="gender">Giới tính</label>
-                            <select id="gender" name="gender">
-                                <option value="">Chọn giới tính</option>
-                                <option value="male">Nam</option>
-                                <option value="female">Nữ</option>
-                                <option value="other">Khác</option>
-                            </select>
+                            <label for="businessIssueDate">Ngày cấp ĐKKD</label>
+                            <input type="date" id="businessIssueDate" name="businessIssueDate">
                         </div>
-                        <div class="form-group">
-                            <label for="nationality">Quốc tịch</label>
-                            <input type="text" id="nationality" name="nationality" placeholder="Việt Nam">
+                        <div class="form-group full-width">
+                            <label for="businessIssuePlace">Nơi cấp ĐKKD</label>
+                            <input type="text" id="businessIssuePlace" name="businessIssuePlace" placeholder="Phòng ĐKKD...">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-section">
-                    <h2>Thông Tin Liên Lạc</h2>
+                    <h2>Thông Tin Chủ Hộ</h2>
                     <div class="form-grid">
-                        <div class="form-group">
-                            <label for="email">Email <span class="required">*</span></label>
-                            <input type="email" id="email" name="email" required placeholder="email@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Số điện thoại</label>
-                            <input type="tel" id="phone" name="phone" placeholder="0912 345 678">
-                        </div>
                         <div class="form-group full-width">
-                            <label for="address">Địa chỉ</label>
-                            <input type="text" id="address" name="address" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <h2>Thông Tin Cá Nhân Khác</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="idNumber">Số CMND/CCCD</label>
-                            <input type="text" id="idNumber" name="idNumber" placeholder="012345678901">
+                            <label for="ownerName">Tên chủ hộ <span class="required">*</span></label>
+                            <input type="text" id="ownerName" name="ownerName" required placeholder="Nguyễn Văn A">
                         </div>
                         <div class="form-group">
-                            <label for="issueDate">Ngày cấp</label>
-                            <input type="date" id="issueDate" name="issueDate">
+                            <label for="ownerIdNumber">Số CCCD <span class="required">*</span></label>
+                            <input type="text" id="ownerIdNumber" name="ownerIdNumber" required placeholder="012345678901">
+                        </div>
+                        <div class="form-group">
+                            <label for="ownerIssueDate">Ngày cấp CCCD</label>
+                            <input type="date" id="ownerIssueDate" name="ownerIssueDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="ownerIssuePlace">Nơi cấp CCCD</label>
+                            <input type="text" id="ownerIssuePlace" name="ownerIssuePlace" placeholder="Công an tỉnh/thành phố">
+                        </div>
+                        <div class="form-group">
+                            <label for="ownerExpiryDate">Ngày hết hạn CCCD</label>
+                            <input type="date" id="ownerExpiryDate" name="ownerExpiryDate">
                         </div>
                         <div class="form-group full-width">
-                            <label for="issuePlace">Nơi cấp</label>
-                            <input type="text" id="issuePlace" name="issuePlace" placeholder="Công an tỉnh/thành phố">
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="occupation">Nghề nghiệp</label>
-                            <input type="text" id="occupation" name="occupation" placeholder="Kỹ sư, bác sĩ, giáo viên, ...">
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="workplace">Nơi làm việc/Học tập</label>
-                            <input type="text" id="workplace" name="workplace" placeholder="Công ty, trường học, ...">
+                            <label for="businessAddress">Địa chỉ <span class="required">*</span></label>
+                            <input type="text" id="businessAddress" name="businessAddress" required placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố">
                         </div>
                     </div>
                 </div>
@@ -152,7 +133,7 @@
         </main>
 
         <footer class="footer">
-            <p>&copy; 2025 SkyClaw. Built with ❤️</p>
+            <p>&copy; 2025 Form. Built with ❤️</p>
         </footer>
     </div>
 
